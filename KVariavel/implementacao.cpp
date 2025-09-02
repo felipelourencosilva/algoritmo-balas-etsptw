@@ -241,7 +241,6 @@ signed main()
 
     cout << 0 << endl;
 
-    // numero / layer / cidade / visitados / s-.size() / s- / s+.size() / s+ 
     for (auto [i, node] : nodes) {
         cout << i << " " << node.layer << " " << node.city << " " << node.visited << " ";
 

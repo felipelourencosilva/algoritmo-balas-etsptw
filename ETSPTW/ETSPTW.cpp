@@ -351,7 +351,6 @@ signed main()
 
     cout << 0 << endl;
 
-    // numero / layer / cidade / visitados / s-.size() / s- / s+.size() / s+ / NAO SEI / Nível da bateria
     for (auto [i, node] : nodes) {
         cout << i << " " << node.layer << " " << node.city << " " << node.visited << " " << costumers[node.city].id << " " << node.batteryLevel << " ";
         
