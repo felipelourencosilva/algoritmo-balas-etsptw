@@ -37,7 +37,7 @@ map<Node, ll> nodeIndex;
 ll allVisited;
 ll numberOfCities;
 
-vector<vector<double>> distances;
+vector<vector<double>> distances, originalDistances;
 vector<TimeWindow> timeWindows, originalTimeWindows;
 vector<ll> k, p, jL, jR;
 
@@ -134,6 +134,7 @@ void getDistances() {
     for (ll i = 1; i <= numberOfCities; i++) {
         for (ll j = 1; j <= numberOfCities; j++) cin >> distances[i][j];
     }
+    originalDistances = distances;
 }
 
 void getTimeWindows() {
@@ -263,6 +264,13 @@ signed main()
 
     for (ll i = 1; i <= numberOfCities; i++) {
         cout << k[i] << " " << jL[i] << " " << jR[i] << endl;
+    }
+
+    for(int i = 0; i <= numberOfCities; i++) {
+        for(int j = 0; j <= numberOfCities; j++) {
+            cout << distances[i][j] << " ";
+        }
+        cout << endl;
     }
 
     auto end = high_resolution_clock::now();
