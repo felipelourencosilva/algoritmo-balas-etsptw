@@ -113,6 +113,18 @@ void withRechargeStation(Node &node, vector<pair<ll,double>> &adjCities, queue<l
         comparation.push_back({nodeAux, distancia[previous.city][rs.id]+distancia[rs.id][nodeAux.city]+rechargingTime});
     }
 
+    for(auto rs : rechargingStations) {
+        Node nodeAux = node;
+        nodeAux.rechargingStationId = rs.id;
+        nodeAux.batteryLevel -= consumptionRate*distancia[previous.city][rs.id];
+        if(!hasBattery(nodeAux)) continue;
+        
+        nodeAux.batteryLevel -= consumptionRate*distancia[rs.id][nodeAux.city];
+        if(!hasBattery(nodeAux)) continue;
+        
+        comparation.push_back({nodeAux, distancia[previous.city][rs.id]+distancia[rs.id][nodeAux.city]});
+    }
+
     for(ll i = 0; i < (ll)comparation.size(); i++) {
         bool flag = true;
         for(ll j = 0; j < (ll)comparation.size(); j++) {
@@ -161,6 +173,21 @@ void returnToOrigin(Node node) {
         canReturn = true;
         if(minDist > distancia[nodeAux.city][rs.id]+distancia[rs.id][1]+rechargingTime){
             minDist = distancia[nodeAux.city][rs.id]+distancia[rs.id][1]+rechargingTime;
+            rechargingIdReturn = rs.id;
+        }
+    }
+
+    for(auto rs : rechargingStations) {
+        Node nodeAux = node;
+        nodeAux.batteryLevel -= consumptionRate*distancia[node.city][rs.id];
+        if(!hasBattery(nodeAux)) continue;
+        
+        nodeAux.batteryLevel -= consumptionRate*distancia[rs.id][1];
+        if(!hasBattery(nodeAux)) continue;
+        
+        canReturn = true;
+        if(minDist > distancia[nodeAux.city][rs.id]+distancia[rs.id][1]){
+            minDist = distancia[nodeAux.city][rs.id]+distancia[rs.id][1];
             rechargingIdReturn = rs.id;
         }
     }
